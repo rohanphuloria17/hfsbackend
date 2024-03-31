@@ -15,8 +15,38 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true,
         },
-        name: {
+        first_name: {
           type: DataTypes.STRING,
+          allowNull: false,
+          unique: true,
+        },
+        last_name: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          unique: true,
+        },
+        email: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          unique: true,
+        },
+        phone: {
+          type: DataTypes.NUMBER,
+          allowNull: false,
+          unique: true,
+        },
+        project_details: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          unique: true,
+        },
+        skills: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          unique: true,
+        },
+        total_work_experience: {
+          type: DataTypes.NUMBER,
           allowNull: false,
           unique: true,
         },

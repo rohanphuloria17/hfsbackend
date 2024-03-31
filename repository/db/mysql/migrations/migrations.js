@@ -1,3 +1,7 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-use-before-define */
 const fs = require("fs");
 const path = require("path");
@@ -5,8 +9,7 @@ const path = require("path");
 const subDir = "up";
 const migrationFolder = path.join(__dirname, subDir);
 
-module.exports.run = async function (conn) {
-  console.log("inside migration run");
+module.exports.run = async (conn) => {
   await checkMigrationTable(conn);
   const migrations = [];
   for await (const file of fs.readdirSync(migrationFolder)) {
@@ -17,21 +20,21 @@ module.exports.run = async function (conn) {
   await runMigrations(conn, migrations, dbAppliedMigration);
 };
 
-const checkMigrationTable = async function (conn) {
+const checkMigrationTable = async (conn) => {
   await conn.query(
     `create table if not exists ${process.env.MYSQL_DB_REACT}.f_migrations (id int auto_increment primary key, num int, fileName char(255), created datetime )`
   );
 };
 
-const getMaxMigration = async function (conn) {
+const getMaxMigration = async (conn) => {
   return (
     await conn.query(
       `select ifnull(max(num),0) as num from ${process.env.MYSQL_DB_REACT}.f_migrations`
     )
-  )[0].num;
+  )[0][0].num;
 };
 
-const runMigrations = async function (conn, migrations, lastMigration) {
+const runMigrations = async (conn, migrations, lastMigration) => {
   const migrationsToBeApplied = [];
   for (const migration of migrations) {
     if (migration.file.split("__")[0] * 1 > lastMigration) {

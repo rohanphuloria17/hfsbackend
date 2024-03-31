@@ -1,6 +1,6 @@
 const express = require("express");
 
-module.exports = function (app) {
+module.exports = (app) => {
   const router = express.Router();
   app.use("/", router);
   app.all("*", (req, res) =>
